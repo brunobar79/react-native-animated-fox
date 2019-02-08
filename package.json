@@ -1,5 +1,5 @@
 {
-  "name": "metamask-logo-react-native",
+  "name": "animated-fox",
   "version": "1.0.0",
   "description": "A react-native version of https://github.com/MetaMask/metamask-logo",
   "main": "index.js",
@@ -8,12 +8,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/brunobar79/metamask-logo-react-native.git"
+    "url": "git+https://github.com/brunobar79/animated-fox.git"
   },
   "author": "Bruno Barbieri",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/brunobar79/metamask-logo-react-native/issues"
+    "url": "https://github.com/brunobar79/animated-fox/issues"
   },
-  "homepage": "https://github.com/brunobar79/metamask-logo-react-native#readme"
+  "homepage": "https://github.com/brunobar79/animated-fox#readme"
 }
