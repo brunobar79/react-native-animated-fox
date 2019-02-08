@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { WebView } from 'react-native';
-import { baseStyles } from '../../styles/common';
 const webPage = require('./web/index.html'); // eslint-disable-line import/no-commonjs
 
 const AnimatedFox = (props) => (
 	<WebView
-		style={baseStyles.flexGrow}
+		style={{ flex: 1 }}
 		source={webPage}
 		javaScriptEnabled
 		bounces={false}
