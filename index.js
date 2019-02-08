@@ -5,7 +5,7 @@ import { WebView } from 'react-native';
 const AnimatedFox = (props) => (
 	<WebView
 		style={{ flex: 1 }}
-		source={`
+		source={{html:`
 			<!DOCTYPE html>
 			<html>
 			<head>
@@ -1495,7 +1495,7 @@ const AnimatedFox = (props) => (
 			</script>
 			</body>
 			</html>
-		`}
+		`}}
 		javaScriptEnabled
 		bounces={false}
 		scrollEnabled={false}
