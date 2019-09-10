@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Web3Webview from 'react-native-web3-webview';
+import { WebView } from 'react-native-webview';
 
 const AnimatedFox = (props) => (
-	<Web3Webview
+	<WebView
 		style={{ flex: 1 }}
 		source={{html:`
 			<!DOCTYPE html>
