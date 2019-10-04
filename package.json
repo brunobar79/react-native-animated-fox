@@ -1,6 +1,6 @@
 {
   "name": "react-native-animated-fox",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A react-native version of https://github.com/MetaMask/metamask-logo",
   "main": "index.js",
   "scripts": {
@@ -17,9 +17,42 @@
   },
   "homepage": "https://github.com/brunobar79/react-native-animated-fox#readme",
   "peerDependencies": {
-    "react-native": "*"
+    "react-native": "*",
+    "react-native-sensors": "*",
+    "react-native-webview": "*",
+    "react": "*"
   },
   "dependencies": {
     "prop-types": "^15.5.10"
+  },
+  "react-native": {
+    "crypto": "react-native-crypto",
+    "net": "react-native-tcp",
+    "http": "@tradle/react-native-http",
+    "https": "https-browserify",
+    "os": "react-native-os",
+    "fs": "react-native-level-fs",
+    "_stream_transform": "readable-stream/transform",
+    "_stream_readable": "readable-stream/readable",
+    "_stream_writable": "readable-stream/writable",
+    "_stream_duplex": "readable-stream/duplex",
+    "_stream_passthrough": "readable-stream/passthrough",
+    "stream": "stream-browserify",
+    "vm": "vm-browserify"
+  },
+  "browser": {
+    "crypto": "react-native-crypto",
+    "net": "react-native-tcp",
+    "http": "@tradle/react-native-http",
+    "https": "https-browserify",
+    "os": "react-native-os",
+    "fs": "react-native-level-fs",
+    "_stream_transform": "readable-stream/transform",
+    "_stream_readable": "readable-stream/readable",
+    "_stream_writable": "readable-stream/writable",
+    "_stream_duplex": "readable-stream/duplex",
+    "_stream_passthrough": "readable-stream/passthrough",
+    "stream": "stream-browserify",
+    "vm": "vm-browserify"
   }
 }
