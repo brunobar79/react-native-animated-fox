@@ -42,6 +42,8 @@ class AnimatedFox extends PureComponent {
 				const { current } = this.webview;
 				current && current.injectJavaScript(JS);
 			});
+		},() => {
+			//Nothing to do here, sensor not available
 		});
 	}
 
