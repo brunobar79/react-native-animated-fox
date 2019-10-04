@@ -1,25 +1,38 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { WebView } from 'react-native-webview';
-import { gyroscope, setUpdateIntervalForType, SensorTypes } from "react-native-sensors";
+import { gyroscope } from "react-native-sensors";
+
+function round(value, decimals) {
+	return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
+}
 
 class AnimatedFox extends PureComponent {
-
 
 	constructor(props) {
 		super(props);
 
-		//setUpdateIntervalForType(SensorTypes.gyroscope, 100);
+		this.position = {
+			beta: 0,
+			gamma: 0
+		};
 
-		this.subscription = gyroscope.subscribe(({x,y,z}) => {
+		this.subscription = gyroscope.subscribe(({ x, y}) => {
+
+			this.position = {
+				beta: this.position.beta - round(x*-10, 4),
+				gamma: this.position.gamma - round(y*-10,4)
+			}
+
+
 			requestAnimationFrame(() => {
 				const JS = `
 					(function () {
 						const event = new CustomEvent('nativedeviceorientation', {
 							detail: {
-								alpha:${z*10},
-								beta:${x*-10},
-								gamma:${y*-10}
+								alpha:${this.position.alpha},
+								beta:${this.position.beta},
+								gamma:${this.position.gamma}
 							}
 						});
 
@@ -1510,7 +1523,7 @@ class AnimatedFox extends PureComponent {
 
 						},{}],3:[function(require,module,exports){
 						function createNode(t){return document.createElementNS(SVG_NS,t)}function setAttribute(t,e,n){t.setAttributeNS(null,e,n)}var perspective=require("gl-mat4/perspective"),multiply=require("gl-mat4/multiply"),lookAt=require("gl-mat4/lookAt"),invert=require("gl-mat4/invert"),rotate=require("gl-mat4/rotate"),transform=require("gl-vec3/transformMat4"),foxJSON=require("./fox.json"),SVG_NS="http://www.w3.org/2000/svg";module.exports=function(t){function e(t){var e=y.getBoundingClientRect();x.x=1-2*(t.x-e.left)/e.width,x.y=1-2*(t.y-e.top)/e.height}function n(t,e){this.svg=t,this.indices=e,this.zIndex=0}function i(t){for(var e=t[0],n=t[1],i=t[2],r=t[3],o=t[4],a=t[5],l=t[6],u=t[7],h=t[8],s=t[9],d=t[10],f=t[11],w=t[12],c=t[13],g=t[14],v=t[15],m=0;m<F;++m){var p=N[3*m],A=N[3*m+1],y=N[3*m+2],x=p*r+A*u+y*f+v;M[3*m]=(p*e+A*o+y*h+w)/x,M[3*m+1]=(p*n+A*a+y*s+c)/x,M[3*m+2]=(p*i+A*l+y*d+g)/x}}function r(t,e){return e.zIndex-t.zIndex}function o(){var t,e=y.getBoundingClientRect(),n=e.width,i=e.height;for(b.length=0,t=0;t<S.length;++t){var o=S[t],a=o.indices,l=a[0],u=a[1],h=a[2],s=M[3*l],d=M[3*l+1],f=M[3*u],w=M[3*u+1],c=M[3*h];if(!((f-s)*(M[3*h+1]-d)-(w-d)*(c-s)<0)){for(var g=[],v=-1/0,m=1/0,p=o.svg,A=0;A<3;++A){var x=a[A];g.push(.5*n*(1-M[3*x])+","+.5*i*(1-M[3*x+1]));var F=M[3*x+2];v=Math.max(v,F),m=Math.min(m,F)}o.zIndex=v+.25*m;var N=g.join(" ");-1===N.indexOf("NaN")&&setAttribute(p,"points",N),b.push(o)}}for(b.sort(r),y.innerHTML="",t=0;t<b.length;++t)y.appendChild(b[t].svg)}function a(){g=!1}function l(){g=!0}function u(t){f=t}function h(t){w=t}function s(){if(g){window.requestAnimationFrame(s);var t=1-m;y.getBoundingClientRect();v[0]=t*v[0]+m*x.x,v[1]=t*v[1]+m*x.y+.085;i(k()),o(),a()}}var d=t||{},f=!!d.followMouse,w=!!d.followMotion,c=!!d.slowDrift,g=!0,v=[0,0],m=.3,p=d.width||400,A=d.height||400,y=createNode("svg"),x={x:0,y:0},F=foxJSON.positions.length,N=new Float32Array(3*F),M=new Float32Array(3*F),b=[];d.pxNotRatio||(p=window.innerWidth*(d.width||.25)|0,A=0|(window.innerHeight*d.height||p),"minWidth"in d&&p<d.minWidth&&(p=d.minWidth,A=d.minWidth*d.height/d.width|0)),setAttribute(y,"width",p+"px"),setAttribute(y,"height",A+"px"),document.body.appendChild(y),function(){for(var t=foxJSON.positions,e=0,n=0;n<t.length;++n)for(var i=t[n],r=0;r<3;++r)N[e++]=i[r]}();var S=function(){for(var t=[],e=0;e<foxJSON.chunks.length;++e)for(var i=foxJSON.chunks[e],r="rgb("+i.color+")",o=i.faces,a=0;a<o.length;++a){var l=o[a],u=createNode("polygon");setAttribute(u,"fill",r),setAttribute(u,"stroke",r),setAttribute(u,"points","0,0, 10,0, 0,10"),y.appendChild(u),t.push(new n(u,l))}return t}(),k=function(){var t=new Float32Array(3),e=new Float32Array([0,1,0]),n=new Float32Array(16),i=new Float32Array(16),r=lookAt(new Float32Array(16),new Float32Array([0,0,400]),t,e),o=invert(new Float32Array(16),r),a=new Float32Array(16),l=new Float32Array(3),u=new Float32Array(16),h=new Float32Array([1,0,0]),s=new Float32Array([0,1,0]),d=new Float32Array([0,0,1]);return function(){var f=y.getBoundingClientRect(),w=f.width,g=f.height;if(perspective(n,Math.PI/4,w/g,100,1e3),invert(a,n),l[0]=v[0],l[1]=v[1],l[2]=1.2,transform(l,l,a),transform(l,l,o),lookAt(i,t,l,e),c){var m=Date.now()/1e3;rotate(i,i,.1+.2*Math.sin(m/3),h),rotate(i,i,.03*Math.sin(m/2)-.1,d),rotate(i,i,.5+.2*Math.sin(m/3),s)}return multiply(u,n,r),multiply(u,u,i),u}}();window.addEventListener("mousemove",function(t){g||l(),f&&(e({x:t.clientX,y:t.clientY}),s())});const q=window.innerWidth,C=window.innerHeight,O=q/2,W=C/2,I=1.2*C;var J=0,R=0;
-						return window.addEventListener("nativedeviceorientation",function(t){if(g||l(),w){if(!R)return R=t.detail.beta,void(J=t.detail.gamma);e({x:O+2.5*(J-t.detail.gamma),y:Math.max(Math.min(W+2.5*(R-t.detail.beta),I),0)}),s()}}),s(),{container:y,lookAt:e,setFollowMouse:u,setFollowMotion:h,stopAnimation:a,startAnimation:l}};
+						return window.addEventListener("nativedeviceorientation",function(t){if(g||l(),w){if(!R)return R=t.detail.beta,void(J=t.detail.gamma);e({x:O+0.5*(J-t.detail.gamma),y:Math.max(Math.min(W+0.5*(R-t.detail.beta),I),0)}),s()}}),s(),{container:y,lookAt:e,setFollowMouse:u,setFollowMotion:h,stopAnimation:a,startAnimation:l}};
 						},{"./fox.json":2,"gl-mat4/invert":5,"gl-mat4/lookAt":6,"gl-mat4/multiply":7,"gl-mat4/perspective":8,"gl-mat4/rotate":9,"gl-vec3/transformMat4":10}],4:[function(require,module,exports){
 						function identity(t){return t[0]=1,t[1]=0,t[2]=0,t[3]=0,t[4]=0,t[5]=1,t[6]=0,t[7]=0,t[8]=0,t[9]=0,t[10]=1,t[11]=0,t[12]=0,t[13]=0,t[14]=0,t[15]=1,t}module.exports=identity;
 						},{}],5:[function(require,module,exports){
